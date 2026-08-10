@@ -1,0 +1,19 @@
+[package]
+name = "renameme"
+version = "0.1.0"
+edition = "2024"
+# Floor set by edition 2024.
+rust-version = "1.85"
+license = "GPL-3.0-or-later"
+autolib = false
+publish = false
+description = "A placeholder command line tool."
+repository = "https://github.com/eljpsm/renameme"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+
+[profile.release]
+strip = true
+lto = true
