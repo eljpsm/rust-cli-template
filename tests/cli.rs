@@ -3,20 +3,23 @@
 use std::path::PathBuf;
 use std::process::{Command, Output};
 
+use tempfile::TempDir;
+
 struct TempTree {
-    root: PathBuf,
+    root: TempDir,
 }
 
 impl TempTree {
     fn new(name: &str) -> Self {
-        let root = std::env::temp_dir().join(format!("renameme-cli-{}-{name}", std::process::id()));
-        let _ = std::fs::remove_dir_all(&root);
-        std::fs::create_dir_all(&root).unwrap();
+        let root = tempfile::Builder::new()
+            .prefix(&format!("renameme-cli-{name}-"))
+            .tempdir()
+            .unwrap();
         TempTree { root }
     }
 
     fn write(&self, rel: &str, contents: &str) -> PathBuf {
-        let path = self.root.join(rel);
+        let path = self.root.path().join(rel);
         std::fs::create_dir_all(path.parent().unwrap()).unwrap();
         std::fs::write(&path, contents).unwrap();
         path
@@ -25,15 +28,9 @@ impl TempTree {
     fn run(&self, args: &[&str]) -> Output {
         Command::new(env!("CARGO_BIN_EXE_renameme"))
             .args(args)
-            .current_dir(&self.root)
+            .current_dir(self.root.path())
             .output()
             .unwrap()
-    }
-}
-
-impl Drop for TempTree {
-    fn drop(&mut self) {
-        let _ = std::fs::remove_dir_all(&self.root);
     }
 }
 

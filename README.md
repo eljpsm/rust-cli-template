@@ -27,8 +27,7 @@ nix build
   which runs the tests in its check phase.
 - A binary crate skeleton: `main.rs` dispatches, `cli.rs` holds the clap types,
   `app.rs` is the only module that prints or picks exit codes.
-- End-to-end tests against the real binary with a scratch directory sandbox and
-  no dev-dependencies.
+- End-to-end tests against the real binary with a scratch directory sandbox.
 - Renovate wired to the shared `eljpsm/renovate-config` preset.
 
 ## License
