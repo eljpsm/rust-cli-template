@@ -15,6 +15,9 @@ nix run github:eljpsm/renameme
 make install
 ```
 
+Prebuilt Linux binaries are on the [releases
+page](https://github.com/eljpsm/renameme/releases).
+
 ## Usage
 
 ```bash

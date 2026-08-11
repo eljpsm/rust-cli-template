@@ -24,7 +24,7 @@ export NEW_NAME NEW_DESC NEW_OWNER
 
 # The fixed list of files that carry the placeholder name or description.
 FILES="Cargo.toml Cargo.lock flake.nix Makefile AGENTS.md README.template.md \
-src/main.rs src/cli.rs src/app.rs tests/cli.rs"
+.goreleaser.yaml src/main.rs src/cli.rs src/app.rs tests/cli.rs"
 
 perl -pi -e '
     s/renameme/$ENV{NEW_NAME}/g;
